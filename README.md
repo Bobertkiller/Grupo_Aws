@@ -3,9 +3,9 @@
 
 # Integrantes
 
-- Matteo Domiciano Varnier - 32158238  
-- Felipe Mazzeo Barbosa - 32257023
-- Daniel Reis Raske - 32219441
+- Matteo Domiciano Varnier
+- Felipe Mazzeo Barbosa
+- Daniel Reis Raske
 
 ## Instalação
 

@@ -1,46 +1,45 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 typedef struct{
-
-    char nome[30];
-    int matricula;
-    float p1;
-    float p2;
-    
+  char nome[50];
+  int idade;
+  float peso;
+  float altura;  
 }sistema;
 
 int main(void){
 
-    int regist;
-    sistema alunos[30];
+  int regist;
+  sistema alunos[3];
 
-    printf("Quantos alunos se deseja inserir no sistema(max30):  ");
-    scanf("%d", &regist);
-
-    for (int i = 0; i > regist; i++){
-
-        printf("Insira o nome do aluno(max 30 caracteres): ");
-        fgets(alunos[i].nome, 30, stdin);
-
-        printf("Agora Insira a matrica deste aluno: ");
-        scanf("%d", &alunos[i].matricula);
-
-        printf("Agora Insira a nota P1 do aluno: ");
-        scanf("%f", &alunos[i].p1);
-
-        printf("Agora Insira a nota P2 do aluno: ");
-        scanf("%f", &alunos[i].p2);
-
-    }
+  for (int i = 0; i < 3; i++){
     
-    printf("Em seguida sera impresso a matricula, nome , p1, p2 do aluno respectivamente");
+    printf("Insira o nome do aluno %d: ",i+1);
+    scanf("%s", alunos[i].nome);
+    
+    printf("Agora insira a idade: ");
+    scanf("%d", &alunos[i].idade);
 
-    for (int i = 0; i > regist; i++){
+    printf("Agora insira o peso: ");
+    scanf("%f", &alunos[i].peso);
 
-        printf("%d - %s, P1: %.2f  P2: %.2f", alunos[i].matricula,alunos[i].nome,alunos[i].p1,alunos[i].p2);
+    printf("Agora insira a atura: ");
+    scanf("%f", &alunos[i].altura);
 
-    }
+  }
+    
+  printf("Dados Digitados\n");
+
+  for (int i = 0; i < 3; i++){
+    printf("---------Dado do aluno %d--------", i+1);
+    printf("Nome : %s\n", alunos[i].nome);
+    printf("Idade : %d\n", alunos[i].idade);
+    printf("Peso : %.2f\n", alunos[i].peso);
+    printf("Altura : %.2f\n", alunos[i].altura);
+
+  }
+
+  return 0;
 
 }

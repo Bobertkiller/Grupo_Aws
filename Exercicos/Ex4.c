@@ -1,23 +1,25 @@
 #include <stdio.h>
 #include <string.h>
 
-int main() {
-  char nome1[50], nome2[50];
+#define MAX_LEN 100
 
-  printf("Digite o primeiro nome: ");
-  scanf("%s", nome1);
+int main(void){
+    char str1[MAX_LEN], str2[MAX_LEN];
+    char temp[MAX_LEN];
 
-  printf("Digite o segundo nome: ");
-  scanf("%s", nome2);
+    printf("Digite o primeiro nome: ");
+    fgets(str1, MAX_LEN, stdin);
 
-  if(strcmp(nome1, nome2) > 0) {
-    printf("%s\n", nome2);
-    printf("%s\n", nome1);
-  }
-  else {
-    printf("%s\n", nome1);  
-    printf("%s\n", nome2);
-  }
+    printf("Digite o segundo nome: ");
+    fgets(str2, MAX_LEN, stdin);
 
-  return 0;
+    if (strcmp(str1, str2) > 0) {
+        strcpy(temp, str1);
+        strcpy(str1, str2);
+        strcpy(str2, temp);
+    }
+
+   printf("%s", str1);
+   printf("%s", str2);
+
 }

@@ -56,7 +56,6 @@
 
 2- Um arquivo chamado Ex1 foi criado na pasta. Rode-o usando: `./Ex7` 
 
-
 ## Ex8
 
 ## Ex9

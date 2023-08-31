@@ -15,9 +15,9 @@ int menor_m(int matriz[3][3]){
 
 int main(void){
     int matriz[3][3], i, j;
-    printf("Digite os numeros da matriz: ");
-    for (i = 0; i < 3; i++){
-        for (j = 0; j < 3; j++){
+    for(int i = 0; i < 3;i++){
+        for(int j = 0; j < 3; j++){
+            printf("Insira o elemento m[%d][%d]: ", i, j);
             scanf("%d", &matriz[i][j]);
         }
     }

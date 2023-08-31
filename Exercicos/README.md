@@ -1,29 +1,31 @@
 # Prints dos Exercicios
 
-# Ex1
+## Ex1
 
-# Ex2
+![alt](/assets/ex1.png)
 
-# Ex3
+## Ex2
 
-# Ex4
+## Ex3
 
-# Ex5
+## Ex4
 
-# Ex6
+## Ex5
 
-# Ex7
+## Ex6
 
-# Ex8
+## Ex7
 
-# Ex9
+## Ex8
 
-# Ex10
+## Ex9
 
-# Ex11
+## Ex10
 
-# Ex12
+## Ex11
 
-# Ex13
+## Ex12
 
-# Ex14
+## Ex13
+
+## Ex14

@@ -27,7 +27,7 @@ int main(void){
     for (i = 0; i < 3; i++){
         for (j = 0; j < 3; j++){
             if (matriz[i][j] == menor_m(matriz)) {
-                printf("Linha com o menor numero: %d\n", i + 1);
+                printf("Linha com o menor numero: %d\n", i );
                 break; // Sair do loop interno após encontrar o primeiro elemento igual ao menor
             }
         }

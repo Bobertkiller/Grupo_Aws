@@ -15,7 +15,7 @@ int main(void){
 
   for (int i = 0; i < 3; i++){
     
-    printf("Insira o nome do aluno %d: ",i+1);
+    printf("\nInsira o nome do aluno %d: ",i+1);
     scanf("%s", alunos[i].nome);
     
     printf("Agora insira a idade: ");
@@ -33,7 +33,7 @@ int main(void){
 
   for (int i = 0; i < 3; i++){
     printf("---------Dado do aluno %d--------", i+1);
-    printf("Nome : %s\n", alunos[i].nome);
+    printf("\nNome : %s\n", alunos[i].nome);
     printf("Idade : %d\n", alunos[i].idade);
     printf("Peso : %.2f\n", alunos[i].peso);
     printf("Altura : %.2f\n", alunos[i].altura);

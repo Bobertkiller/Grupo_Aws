@@ -15,6 +15,8 @@ int main(void) {
     char *minhaString = "Exemplo de string";
     char meuCaractere = 'd';
     
+    printf("A frase escolhida foi: Exemplo de string.\nA letra escolhida foi: d\n");
+
     int posicao = encontrarCaractere(minhaString, meuCaractere);
     
     if (posicao != -1) {

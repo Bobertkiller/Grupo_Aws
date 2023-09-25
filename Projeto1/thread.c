@@ -8,60 +8,68 @@ typedef struct {
     int saldo;
 } conta;
 
-conta from, to;
-int valor;
+conta banco_1, banco_2;
+int pix;
 pthread_mutex_t lock;
 
 void *transferencia(void *arg) {
     int *params = (int *)arg;
-    int index = params[0];
+    int aux = params[0];
     int direcao = params[1];
 
     pthread_mutex_lock(&lock);
 
-    if (direcao == 1) {
-        if (from.saldo >= valor) {
-            from.saldo -= valor;
-            to.saldo += valor;
+    switch (direcao) {
+        case 1:
+            if (banco_1.saldo >= pix) {
+                banco_1.saldo -= pix;
+                banco_2.saldo += pix;
 
-            printf("Thread %d:\n", index);
-            printf("Saldo de to: %d\n", to.saldo);
-            printf("Saldo de from: %d\n", from.saldo);
-            printf("Transferencia feita com sucesso\n");
-        } else {
-            printf("Thread %d: Transferência falhou por saldo insuficiente!\n", index);
-        }
-    } else if (direcao == 2) {
-        if (to.saldo >= valor) {
-            to.saldo -= valor;
-            from.saldo += valor;
+                printf("Thread %d:\n", aux);
+                printf("Saldo de banco_1: %d\n", banco_1.saldo);
+                printf("Saldo de banco_2: %d\n", banco_2.saldo);
+                printf("Transferencia feita com sucesso\n");
+            } else {
+                printf("Thread %d: Transferência falhou por saldo insuficiente!\n", aux);
+            }
+            break;
+        
+        case 2:
+            if (banco_2.saldo >= pix) {
+                banco_2.saldo -= pix;
+                banco_1.saldo += pix;
 
-            printf("Thread %d:\n", index);
-            printf("Saldo de to: %d\n", to.saldo);
-            printf("Saldo de from: %d\n", from.saldo);
-            printf("Transferencia feita com sucesso\n");
-        } else {
-            printf("Thread %d: Transferência falhou por saldo insuficiente!\n", index);
-        }
-    } else {
-        printf("Thread %d: Direção de transferência inválida!\n", index);
+                printf("Thread %d:\n", aux);
+                printf("Saldo de banco_1: %d\n", banco_1.saldo);
+                printf("Saldo de banco_2: %d\n", banco_2.saldo);
+                printf("Transferencia feita com sucesso\n");
+            } else {
+                printf("Thread %d: Transferência falhou por saldo insuficiente!\n", aux);
+            }
+            break;
+
+        default:
+            printf("Thread %d: Direção de transferência inválida!\n", aux);
+            break;
     }
 
     pthread_mutex_unlock(&lock);
 
     free(params);
+
     pthread_exit(NULL);
 }
+
 
 int main() {
     pthread_t threads[MAX_THREADS];
 
     pthread_mutex_init(&lock, NULL);
 
-    from.saldo = 100;
-    to.saldo = 100;
+    banco_1.saldo = 100;
+    banco_2.saldo = 100;
 
-    int num_transferencias, direcao;
+    int num_transferencias, transacao;
 
     printf("Informe o número de transferências desejadas: ");
     scanf("%d", &num_transferencias);
@@ -71,18 +79,18 @@ int main() {
         exit(1);
     }
 
-    printf("Informe o valor da transação: ");
-    scanf("%d", &valor);
+    printf("Informe o pix da transação: ");
+    scanf("%d", &pix);
     
-    printf("\n*****1- Vai de from para to*****\n");
-    printf("*****2 - vai de to para from*****\n");
+    printf("\n*****1- Vai de banco_1 para banco_2*****\n");
+    printf("*****2 - Vai de banco_2 para banco_1*****\n");
     printf("\nEscolha a direção para as transferências (1 ou 2): ");
-    scanf("%d", &direcao);
+    scanf("%d", &transacao);
 
     for (int i = 0; i < num_transferencias; i++) {
         int *params = malloc(2 * sizeof(int));
         params[0] = i;
-        params[1] = direcao;
+        params[1] = transacao;
 
         if (pthread_create(&threads[i], NULL, transferencia, (void *)params) != 0) {
             perror("pthread criado");
@@ -97,7 +105,7 @@ int main() {
     pthread_mutex_destroy(&lock);
 
     printf("Transferências concluídas e memória liberada.\n");
-    printf("Saldo final de to: %d\n", to.saldo);
-    printf("Saldo final de from: %d\n", from.saldo);
+    printf("Saldo final de banco_1: %d\n", banco_1.saldo);
+    printf("Saldo final de banco_2: %d\n", banco_2.saldo);
     return 0;
 }

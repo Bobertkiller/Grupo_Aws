@@ -9,7 +9,7 @@
 
 ## Instalação
 
-1. Clone o repositório com o seguinte comando:\
+1. Clone o repositório com o seguinte comando:
 `git clone git@github.com:Bobertkiller/Grupo_Aws.git`
 
 

@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <pthread.h>
 
-#define MAX_THREADS 100 //define quantas trasnferencias maximas pode ser feitas
+#define MAX_THREADS 100 
 
 typedef struct { 
     int saldo;
@@ -51,7 +51,7 @@ void *transferencia(void *arg) {
             break;
 
         default:
-            printf("Thread %d: Direção de transferência inválida!\n", aux); 
+            printf("Direção de transferência inválida!\n"); 
             break;
     }
 
@@ -73,15 +73,15 @@ int main() {
     banco_2.saldo = 100; 
 
     
-    printf("Informe o número de transferências desejadas: ");
+    printf("Quantas transacoes quer fazer? ");
     scanf("%d", &num_transferencias);
 
     if (num_transferencias > MAX_THREADS) { 
-        printf("O número de transferências não pode exceder %d.\n", MAX_THREADS);
+        printf("O número de transacoes muito alto \n");
         exit(1);
     }
 
-    printf("Informe o pix da transação: ");
+    printf("Informe o valor: ");
     scanf("%d", &pix); 
     
     printf("\n*****1- Vai de banco_1 para banco_2*****\n");

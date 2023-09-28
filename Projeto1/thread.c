@@ -77,7 +77,7 @@ int main() {
     scanf("%d", &num_transferencias);
 
     if (num_transferencias > MAX_THREADS) { 
-        printf("O número de transacoes muito alto \n");
+        printf("O número de transacoes muito alto. Maximo 100 transacoes\n");
         exit(1);
     }
 

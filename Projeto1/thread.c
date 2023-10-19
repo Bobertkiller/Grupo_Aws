@@ -82,11 +82,8 @@ int main() {
     }
 
     printf("Informe o valor: ");
-<<<<<<< HEAD
     scanf("%d", &pix); //pede para o usuario digitar o vlaor da transacao
-=======
-    scanf("%d", &pix); 
->>>>>>> 7a0a2ab36873ec3e711ad536ce3899172f87cb80
+
     
     printf("\n*****1- Vai de banco_1 para banco_2*****\n");
     printf("*****2 - Vai de banco_2 para banco_1*****\n");

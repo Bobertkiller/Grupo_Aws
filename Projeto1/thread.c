@@ -81,7 +81,7 @@ int main() {
         exit(1);
     }
 
-    printf("Informe o pix da transação: ");
+    printf("Informe o valor: ");
     scanf("%d", &pix); //pede para o usuario digitar o vlaor da transacao
     
     printf("\n*****1- Vai de banco_1 para banco_2*****\n");

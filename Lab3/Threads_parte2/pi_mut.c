@@ -5,6 +5,7 @@
 int thread_count;
 int n;
 double sum = 0.0;
+pthread_mutex_t mutex;
 
 void *Thread_sum(void *rank) {
     long my_rank = (long) rank;
@@ -12,15 +13,18 @@ void *Thread_sum(void *rank) {
     long long my_n = n / thread_count;
     long long my_first_i = my_n * my_rank;
     long long my_last_i = my_first_i + my_n;
-    double factor;
+    double fator;
 
     if (my_first_i % 2 == 0)
-        factor = 1.0;
+        fator = 1.0;
     else
-        factor = -1.0;
+        fator = -1.0;
 
-    for (i = my_first_i; i < my_last_i; i++, factor = -factor) {
-        sum += factor / (2.0 * i + 1);
+    for (i = my_first_i; i < my_last_i; i++, fator = -fator) {
+        double meu_termo = fator / (2.0 * i + 1);
+        pthread_mutex_lock(&mutex);
+        sum += meu_termo;
+        pthread_mutex_unlock(&mutex);
     }
 
     return NULL;
@@ -43,6 +47,8 @@ int main(int argc, char *argv[]) {
     pthread_t *thread_handles;
     thread_handles = (pthread_t *) malloc(thread_count * sizeof(pthread_t));
 
+    pthread_mutex_init(&mutex, NULL);
+
     for (long thread = 0; thread < thread_count; thread++) {
         pthread_create(&thread_handles[thread], NULL, Thread_sum, (void *) thread);
     }
@@ -50,6 +56,8 @@ int main(int argc, char *argv[]) {
     for (long thread = 0; thread < thread_count; thread++) {
         pthread_join(thread_handles[thread], NULL);
     }
+
+    pthread_mutex_destroy(&mutex);
 
     double pi = 4.0 * sum;
     printf("Quantidade de threads: %d\n", thread_count);

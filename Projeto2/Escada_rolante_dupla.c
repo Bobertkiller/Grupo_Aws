@@ -8,7 +8,7 @@ int main() {
   scanf("%d", &N);
   
   tempofinal = 0; // inicia com tempo 0
-  direcao = 0; //inicia com direcao como 0
+  direcao = -1; //inicia com direcao como 0
   aguardando = 0;
 
   
@@ -16,7 +16,7 @@ int main() {
     scanf("%d %d", &tp, &di);
     
     //se a direcai nao foi definida, apenas atualiza o tempo final
-    if(direcao == 0) {
+    if(direcao == -1) {
         direcao = di;
         tempofinal = tp + 10; 
     } else if(direcao == di) {

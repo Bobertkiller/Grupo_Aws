@@ -4,8 +4,8 @@
 
 int main() {
     int N, i, j;
-    int tp[100]; // Assumindo um tamanho máximo de 100 para os arrays
-    int di[100];
+    int tp[1000]; // Assumindo um tamanho máximo de 100 para os arrays
+    int di[1000];
     int tempofinal, direcao, aguardando;
 
     srand(time(NULL));

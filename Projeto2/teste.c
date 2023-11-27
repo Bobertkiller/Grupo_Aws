@@ -6,6 +6,7 @@
 typedef struct Pessoa {
     int chegada;
     int sentido;
+    int chegou;
     struct Pessoa* next;
 } Pessoa;
 
@@ -23,8 +24,7 @@ Pessoa* criarPessoa(int chegada, int sentido) {
 }
 
 // Função para adicionar um nó (Pessoa) no final da lista
-void adicionarAoFim(Pessoa** head, int chegada, int sentido) {
-    Pessoa* novaPessoa = criarPessoa(chegada, sentido);
+void adicionarAoFimLista(Pessoa** head, Pessoa* novaPessoa) {
     if (*head == NULL) {
         *head = novaPessoa;
     } else {
@@ -61,43 +61,10 @@ void limpaLista(Pessoa** head) {
     }
 }
 
-Pessoa* verificarInicioFila(Pessoa* head) {
-    return head;
-}
-
-int contarSentidosDiferentes(Pessoa* head) {
-    int sentido0Encontrado = 0;
-    int sentido1Encontrado = 0;
-
-    Pessoa* atual = head;
-
-    while (atual != NULL) {
-        if (atual->sentido == 0) {
-            sentido0Encontrado = 1;
-        } else if (atual->sentido == 1) {
-            sentido1Encontrado = 1;
-        }
-
-        atual = atual->next;
-    }
-
-    if (sentido0Encontrado && sentido1Encontrado) {
-        // Ambos os sentidos estão presentes
-        return 2;
-    } else if (sentido0Encontrado || sentido1Encontrado) {
-        // Apenas um sentido está presente
-        return 1;
-    } else {
-        // Nenhum sentido está presente (lista vazia)
-        return 0;
-    }
-}
-
 int main() {
     int N, i;
-    int chegada[1000]; // Assumindo um tamanho máximo de 1000 para os arrays
-    int sentido[1000];
-    int tempofinal, direcao;
+    int tempofinal, limite;
+    Pessoa* pessoas = NULL;
 
     srand(time(NULL));
 
@@ -107,68 +74,59 @@ int main() {
     printf("Digite os tempos de chegada e direções para cada pessoa:\n");
 
     for (i = 0; i < N; i++) {
+        int chegada, sentido;
         printf("Tempo de chegada para a pessoa %d: ", i + 1);
-        scanf("%d", &chegada[i]);
+        scanf("%d", &chegada);
 
         printf("Sentido para a pessoa %d (0 para esquerda, 1 para direita): ", i + 1);
-        scanf("%d", &sentido[i]);
+        scanf("%d", &sentido);
+
+        Pessoa* novaPessoa = criarPessoa(chegada, sentido);
+        adicionarAoFimLista(&pessoas, novaPessoa);
     }
 
     tempofinal = 0;
-    direcao = -1;
+    limite = 0;
 
-    Pessoa* atual = NULL;   // Lista das pessoas atuais na escada
-    Pessoa* aguardo = NULL; // Lista das pessoas em espera
+    Pessoa* atual = pessoas;
 
-    for (i = 0; i < N; i++) {
-
-        if (direcao == -1){
-            direcao = sentido[i];
-            adicionarAoFim(&atual, chegada[i], sentido[i]);
-            tempofinal = chegada[i] + 10;
-        }
-        else if (direcao == sentido[i] && tempofinal >= chegada[i]){
-
-            adicionarAoFim(&atual, chegada[i], sentido[i]);
-            tempofinal = chegada[i] + 10;
-        }
-        else {
-            Pessoa* elem = verificarInicioFila(aguardo);
-            if (elem != NULL && chegada[i] > tempofinal) {
-                limpaLista(&atual);
-                adicionarAoFim(&atual, elem->chegada, elem->sentido);
-                tempofinal = elem->chegada + 10;
-                direcao = elem->sentido;
-                removerDoInicio(&aguardo);
-            } else if (tempofinal < chegada[i] && aguardo == NULL) {
-                limpaLista(&atual);
-                adicionarAoFim(&atual, chegada[i], sentido[i]);
-                tempofinal = chegada[i] + 10;
-                direcao = sentido[i];
+    while (atual != NULL) {
+        if (atual->chegou == 0) {
+            if (tempofinal == 0) {
+                tempofinal = atual->chegada + 10;
             } else {
-                adicionarAoFim(&aguardo, chegada[i], sentido[i]);
+                tempofinal += 10;
+            }
+            atual->chegou = 1;
+        }
+
+        for (Pessoa* j = atual->next; j != NULL; j = j->next) {
+            int diff = j->chegada - atual->chegada;
+            if (limite - diff > 0 || tempofinal > j->chegada) {
+                if (atual->sentido == j->sentido && j->chegou == 0) {
+                    if (tempofinal > j->chegada + 10) {
+                        continue;
+                    } else {
+                        tempofinal = j->chegada + 10;
+                    }
+                    limite = 10;
+                    j->chegou = 1;
+                } else {
+                    limite -= diff;
+                }
+            } else {
+                break;
             }
         }
+
+        atual = atual->next;
     }
 
-    imprimirLista(atual);
-    imprimirLista(aguardo);
-
-    if (contarSentidosDiferentes(aguardo) == 1){
-        tempofinal += 10;
-    } else if(contarSentidosDiferentes(aguardo) == 2) {
-        tempofinal += 20;
-    }
-
-    for (i = 0; i < N; i++) {
-        printf("Pessoa %d: Chegada: %d, Sentido: %d\n", i + 1, chegada[i], sentido[i]);
-    }
-
+    imprimirLista(pessoas);
     printf("Tempo final: %d\n", tempofinal);
 
     // Liberando a memória alocada para as listas
-    limpaLista(&atual);
-    limpaLista(&aguardo);
+    limpaLista(&pessoas);
 
     return 0;
 }

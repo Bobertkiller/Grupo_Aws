@@ -66,6 +66,33 @@ Pessoa* verificarInicioFila(Pessoa* head) {
     return head;
 }
 
+int contarSentidosDiferentes(Pessoa* head) {
+    int sentido0Encontrado = 0;
+    int sentido1Encontrado = 0;
+
+    Pessoa* atual = head;
+
+    while (atual != NULL) {
+        if (atual->sentido == 0) {
+            sentido0Encontrado = 1;
+        } else if (atual->sentido == 1) {
+            sentido1Encontrado = 1;
+        }
+
+        atual = atual->next;
+    }
+
+    if (sentido0Encontrado && sentido1Encontrado) {
+        // Ambos os sentidos estão presentes
+        return 2;
+    } else if (sentido0Encontrado || sentido1Encontrado) {
+        // Apenas um sentido está presente
+        return 1;
+    } else {
+        // Nenhum sentido está presente (lista vazia)
+        return 0;
+    }
+}
 
 int main() {
     int N, i;
@@ -128,6 +155,11 @@ int main() {
     imprimirLista(atual);
     imprimirLista(aguardo);
 
+    if (contarSentidosDiferentes(aguardo) == 1){
+        tempofinal += 10;
+    } else if(contarSentidosDiferentes(aguardo) == 2) {
+        tempofinal += 20;
+    }
 
     for (i = 0; i < N; i++) {
         printf("Pessoa %d: Chegada: %d, Sentido: %d\n", i + 1, chegada[i], sentido[i]);

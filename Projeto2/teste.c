@@ -10,6 +10,7 @@ typedef struct Pessoa {
 } Pessoa;
 
 // Função para criar um novo nó (Pessoa)
+// Função para criar um novo nó (Pessoa)
 Pessoa* criarPessoa(int chegada, int sentido) {
     Pessoa* novaPessoa = (Pessoa*)malloc(sizeof(Pessoa));
     if (novaPessoa == NULL) {
@@ -55,19 +56,16 @@ void imprimirLista(Pessoa* head) {
     printf("NULL\n");
 }
 
-void limpalista(Pessoa* head){
-    while (head != NULL) {
-        removerDoInicio(&head);
+void limpaLista(Pessoa** head) {
+    while (*head != NULL) {
+        removerDoInicio(head);
     }
 }
 
 Pessoa* verificarInicioFila(Pessoa* head) {
-    if (head != NULL) {
-        return head;
-    } else {
-        return NULL;
-    }
+    return head;
 }
+
 
 int main() {
     int N, i;
@@ -111,18 +109,17 @@ int main() {
         else {
             Pessoa* elem = verificarInicioFila(aguardo);
             if (elem != NULL && chegada[i] > tempofinal) {
-                limpalista(atual);
+                limpaLista(&atual);
                 adicionarAoFim(&atual, elem->chegada, elem->sentido);
-                tempofinal += 10;
+                tempofinal = elem->chegada + 10;
                 direcao = elem->sentido;
-                adicionarAoFim(&aguardo, chegada[i], sentido[i]);
-            } else if (tempofinal < chegada[i] && aguardo == NULL) { // começa do inicio a lista
-                limpalista(atual);
+                removerDoInicio(&aguardo);
+            } else if (tempofinal < chegada[i] && aguardo == NULL) {
+                limpaLista(&atual);
                 adicionarAoFim(&atual, chegada[i], sentido[i]);
                 tempofinal = chegada[i] + 10;
                 direcao = sentido[i];
-            }
-            else {
+            } else {
                 adicionarAoFim(&aguardo, chegada[i], sentido[i]);
             }
         }
@@ -139,8 +136,8 @@ int main() {
     printf("Tempo final: %d\n", tempofinal);
 
     // Liberando a memória alocada para as listas
-    limpalista(atual);
-    limpalista(aguardo);
+    limpaLista(&atual);
+    limpaLista(&aguardo);
 
     return 0;
 }

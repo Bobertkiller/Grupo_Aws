@@ -10,7 +10,6 @@ typedef struct Pessoa {
 } Pessoa;
 
 // Função para criar um novo nó (Pessoa)
-// Função para criar um novo nó (Pessoa)
 Pessoa* criarPessoa(int chegada, int sentido) {
     Pessoa* novaPessoa = (Pessoa*)malloc(sizeof(Pessoa));
     if (novaPessoa == NULL) {

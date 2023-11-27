@@ -1,26 +1,43 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 int main() {
-    int N, tempofinal, direcao, aguardando;
+    int N, i, j;
+    int tp[1000]; // Assumindo um tamanho máximo de 100 para os arrays
+    int di[1000];
+    int tempofinal, direcao, aguardando;
 
-    printf("Digite a quantidade de pessoas e depois os tempos de chegada e direções\n");
+    srand(time(NULL));
+
+    printf("Digite o número de pessoas: ");
     scanf("%d", &N);
 
-    int tp[N], di[N];  // Usar listas para armazenar os tempos e direções
+    printf("Digite os tempos de chegada e direções para cada pessoa:\n");
+
+    for (i = 0; i < N; i++) {
+        printf("Tempo de chegada para a pessoa %d: ", i + 1);
+        scanf("%d", &tp[i]);
+
+        printf("Direção para a pessoa %d (0 para esquerda, 1 para direita): ", i + 1);
+        scanf("%d", &di[i]);
+    }
 
     tempofinal = 0;
     direcao = -1;
     aguardando = 0;
 
-    for (int i = 0; i < N; i++) {
-        scanf("%d %d", &tp[i], &di[i]);
-
-        if (direcao == -1) {
-            direcao = di[i];
+    for (i = 0; i < N; i++) {
+        if (direcao == -1) { //verifica se é a primeira pessoa que chegou
+            direcao = di[i]; // coloca no sentido da primeira pessoa
             tempofinal = tp[i] + 10;
-        } else if (direcao == di[i]) {
+        } else if (direcao == di[i]) { // verifica se o sentido é o mesmo
             tempofinal = tp[i] + 10;
-        } else {
+        } else if (direcao != di[i] && direcao == di[i + 1] && tp[i + 1] <= tempofinal){
+            aguardando += tempofinal - tp[i + 1];
+            tempofinal = tp[i + 1] + 10;
+        }
+        else {
             if (tp[i] <= tempofinal) {
                 aguardando += tempofinal - tp[i];
                 tempofinal += 10;
@@ -32,20 +49,11 @@ int main() {
         }
     }
 
-    // Verifica se todos os tempos são para a mesma direção e adiciona 10 ao último tempo
-    int mesmaDirecao = 1;
-    for (int i = 1; i < N; i++) {
-        if (di[i] != di[0]) {
-            mesmaDirecao = 0;
-            break;
-        }
+    for (i = 0; i < N; i++) {
+        printf("Pessoa %d: Tempo de chegada: %d, Direção: %d\n", i + 1, tp[i], di[i]);
     }
 
-    if (mesmaDirecao) {
-        tempofinal += 10;
-    }
-
-    printf("Tempo final foi de: %d\n", tempofinal);
+    printf("Tempo final: %d\n", tempofinal);
 
     return 0;
 }

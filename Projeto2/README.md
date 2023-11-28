@@ -15,15 +15,16 @@ Devemos simular o funcionamento da escada rolante dupla com base nas informaçõ
 
 # Como foi resolvido o problema
 
-A estrutura central do programa é a definição da estrutura de dados Pessoa, que representa cada indivíduo na simulação. Cada instância dessa estrutura contém informações essenciais, tais como o tempo de chegada (chegada), o sentido em que a pessoa se desloca (0 ou 1) (sentido), e um indicador se ela já chegou ao outro lado da escada (chegou).
+A base do programa é a definição da estrutura de dados chamada Pessoa, que representa cada indivíduo na simulação. Cada instância dessa estrutura contém informações importantes, como o momento em que a pessoa chegou (chegada), a direção em que ela está se movendo (0 ou 1) (sentido) e um indicador que diz se ela já cruzou para o outro lado da escada (chegou).
 
 A alocação dinâmica de memória é empregada para armazenar as informações de todas as pessoas envolvidas na simulação.
 
-A lógica principal do código está na determinação do tempo total necessário para que todas as pessoas utilizem a escada sem conflitos. O programa percorre cada pessoa e, para cada uma, verifica se há outras pessoas na escada que possam causar conflitos de movimento. Se existirem, o tempo total é ajustado para garantir que a pessoa atual possa utilizar a escada sem colidir com outras.
+A lógica principal do código está na determinação do tempo total necessário para que todas as pessoas usem a escada sem conflitos. O programa percorre cada pessoa e verifica se há outras pessoas na escada que podem causar problemas de movimento. Se houver, o tempo total é ajustado para garantir que a pessoa atual possa usar a escada sem colidir com as outras.
 
-O tempo total é calculado passando por cada pessoa na escada. O tempo que cada pessoa leva para se mover é calculado com base em condições específicas. Se for a primeira pessoa, o tempo é o momento em que chegou mais 10 segundos. Para as pessoas seguintes, o tempo depende de quando a pessoa anterior chegou e é aumentado em 10 segundos.
+O tempo total é calculado percorrendo cada pessoa na escada. O tempo que cada pessoa leva para se mover é calculado com base em condições específicas. Se for a primeira pessoa, o tempo será igual ao momento em que ela chegou mais 10 segundos. Para as pessoas seguintes, o tempo depende de quando a pessoa anterior chegou e é aumentado em 10 segundos.
 
-O programa também verifica as pessoas subsequentes, levando em consideração o sentido do movimento e o espaço disponível entre elas. Se duas pessoas estiverem se movendo no mesmo sentido e a segunda puder iniciar imediatamente após a primeira, o tempo total é ajustado. Se as pessoas estiverem se movendo em sentidos opostos, o programa reduz o contador com base no tempo entre elas.
+O programa também analisa as pessoas subsequentes levando em consideração sua direção de movimento e o espaço disponível entre elas.
+Quando duas pessoas estão se movendo na mesma direção e a segunda pessoa pode começar imediatamente após a primeira, o tempo total é ajustado. Se as pessoas estiverem se movendo em direções opostas, o programa diminui a contagem com base no tempo entre elas.
 
 No final, o código informa quanto tempo levará para que todos usem a escada rolante de forma eficiente e sem conflitos.
 

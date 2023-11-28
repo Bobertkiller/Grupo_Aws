@@ -9,14 +9,24 @@
 
 # Sobre o Projeto
 
-Nesse projeto tivemos o desafio de solucionar um problema de uma escada rolante dupla, aonde somente uma escada rolante sobe e desce.
+Devemos simular o funcionamento da escada rolante dupla com base nas informações fornecidas sobre a chegada das pessoas, o momento em que elas chegam e a direção em que desejam se mover. O objetivo é determinar o momento em que a última pessoa sai da escada rolante.
 
-O codigo pode quantas pessoas estaram na escada rolante. 
-Ao a primeira pessoa entrar, ele ira verificar se a proxima pessoa que esta chegando ira para a mesma posicao ou nao.
 
-Se a pessoa for ao mesmo lado, a escada rolante sobe e com isso so somamos 10 na ultima pessoa da escada
 
-Se a pessoa for para o outro lado, o codigo bloqueia essa pessoa e faz com que a espere que todos cheguem ao outro lado para a pessoa atravessar. 
+# Como foi resolvido o problema
+
+A estrutura central do programa é a definição da estrutura de dados Pessoa, que representa cada indivíduo na simulação. Cada instância dessa estrutura contém informações essenciais, tais como o tempo de chegada (chegada), o sentido em que a pessoa se desloca (0 ou 1) (sentido), e um indicador se ela já chegou ao outro lado da escada (chegou).
+
+A alocação dinâmica de memória é empregada para armazenar as informações de todas as pessoas envolvidas na simulação.
+
+A lógica principal do código está na determinação do tempo total necessário para que todas as pessoas utilizem a escada sem conflitos. O programa percorre cada pessoa e, para cada uma, verifica se há outras pessoas na escada que possam causar conflitos de movimento. Se existirem, o tempo total é ajustado para garantir que a pessoa atual possa utilizar a escada sem colidir com outras.
+
+O tempo total é calculado passando por cada pessoa na escada. O tempo que cada pessoa leva para se mover é calculado com base em condições específicas. Se for a primeira pessoa, o tempo é o momento em que chegou mais 10 segundos. Para as pessoas seguintes, o tempo depende de quando a pessoa anterior chegou e é aumentado em 10 segundos.
+
+O programa também verifica as pessoas subsequentes, levando em consideração o sentido do movimento e o espaço disponível entre elas. Se duas pessoas estiverem se movendo no mesmo sentido e a segunda puder iniciar imediatamente após a primeira, o tempo total é ajustado. Se as pessoas estiverem se movendo em sentidos opostos, o programa reduz o contador com base no tempo entre elas.
+
+No final, o código informa quanto tempo levará para que todos usem a escada rolante de forma eficiente e sem conflitos.
+
 
 # Sistema Operacional
 ![alt](assets/Sistema.png)
